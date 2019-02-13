@@ -25,7 +25,7 @@ describe('create request', () => {
 
         it('should send payment/payout', (done) => {
             req.data.method = "sendPayout";
-            req.data.amount = 10;
+            req.data.amount = process.env.TEST_AMOUNT || 10;
             req.data.currency = process.env.TEST_CURRENCY || "USD";
             req.data.receiver = process.env.TEST_RECEIVER || "your-buyer@example.com";
             createRequest(req, (statusCode, data) => {

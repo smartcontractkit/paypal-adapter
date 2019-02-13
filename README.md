@@ -40,7 +40,7 @@ Set the `MODE` env variable to `sandbox`.
 In order to test sending payouts, make sure your facilitator account is funded.
 Also make sure you are sending in the default currency of your account.
 Receiver should be your "buyer" account.
-These env vars can be set with `TEST_CURRENCY` and `TEST_RECEIVER`.
+These env vars can be set with `TEST_CURRENCY` and `TEST_RECEIVER`, as well as `TEST_AMOUNT`.
 
 To test the getPayout method with another payout other than the one created in the test, set the `TEST_PAYOUT_ID` env var.
 
