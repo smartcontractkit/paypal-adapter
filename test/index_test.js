@@ -24,10 +24,12 @@ describe('create request', () => {
         let payoutId = "";
 
         it('should send payment/payout', (done) => {
-            req.data.method = "sendPayout";
-            req.data.amount = process.env.TEST_AMOUNT || 10;
-            req.data.currency = process.env.TEST_CURRENCY || "USD";
-            req.data.receiver = process.env.TEST_RECEIVER || "your-buyer@example.com";
+            req.data = {
+                method: "sendPayout",
+                amount: process.env.TEST_AMOUNT || 10,
+                currency: process.env.TEST_CURRENCY || "USD",
+                receiver: process.env.TEST_RECEIVER || "your-buyer@example.com"
+            };
             createRequest(req, (statusCode, data) => {
                 assert.equal(statusCode, 201, "status code");
                 assert.equal(data.jobRunID, jobID, "job id");
@@ -38,12 +40,52 @@ describe('create request', () => {
         }).timeout(5000);
 
         it('should get payout details', (done) => {
-            req.data.method = "getPayout";
-            req.data.payout_id = process.env.TEST_PAYOUT_ID || payoutId;
+            req.data = {
+                method: "getPayout",
+                payout_id: process.env.TEST_PAYOUT_ID || payoutId
+            };
             createRequest(req, (statusCode, data) => {
                 assert.equal(statusCode, 200, "status code");
                 assert.equal(data.jobRunID, jobID, "job id");
                 assert.isNotEmpty(data.data, "response data");
+                done();
+            })
+        }).timeout(5000);
+
+        it('should fail sendPayout with missing amount', (done) => {
+            req.data = {
+                method: "sendPayout",
+                receiver: "your-buyer@example.com"
+            };
+            createRequest(req, (statusCode, data) => {
+                assert.equal(statusCode, 400, "status code");
+                assert.equal(data.jobRunID, jobID, "job id");
+                assert.isUndefined(data.data, "response data");
+                done();
+            })
+        }).timeout(5000);
+
+        it('should fail sendPayout with missing receiver', (done) => {
+            req.data = {
+                method: "sendPayout",
+                amount: 10
+            };
+            createRequest(req, (statusCode, data) => {
+                assert.equal(statusCode, 400, "status code");
+                assert.equal(data.jobRunID, jobID, "job id");
+                assert.isUndefined(data.data, "response data");
+                done();
+            })
+        }).timeout(5000);
+
+        it('should fail getPayout with missing payout id', (done) => {
+            req.data = {
+                method: "getPayout"
+            };
+            createRequest(req, (statusCode, data) => {
+                assert.equal(statusCode, 400, "status code");
+                assert.equal(data.jobRunID, jobID, "job id");
+                assert.isUndefined(data.data, "response data");
                 done();
             })
         }).timeout(5000);
