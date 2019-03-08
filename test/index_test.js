@@ -10,6 +10,7 @@ describe('create request', () => {
                 method: ""
             }
         };
+        const timeout = 5000;
 
         it('should fail on invalid method', (done) => {
             // Notice method not set.
@@ -37,7 +38,7 @@ describe('create request', () => {
                 payoutId = data.data.batch_header.payout_batch_id;
                 done();
             })
-        }).timeout(5000);
+        }).timeout(timeout);
 
         it('should get payout details', (done) => {
             req.data = {
@@ -50,7 +51,7 @@ describe('create request', () => {
                 assert.isNotEmpty(data.data, "response data");
                 done();
             })
-        }).timeout(5000);
+        }).timeout(timeout);
 
         it('should fail sendPayout with missing amount', (done) => {
             req.data = {
@@ -63,7 +64,7 @@ describe('create request', () => {
                 assert.isUndefined(data.data, "response data");
                 done();
             })
-        }).timeout(5000);
+        }).timeout(timeout);
 
         it('should fail sendPayout with missing receiver', (done) => {
             req.data = {
@@ -76,7 +77,7 @@ describe('create request', () => {
                 assert.isUndefined(data.data, "response data");
                 done();
             })
-        }).timeout(5000);
+        }).timeout(timeout);
 
         it('should fail getPayout with missing payout id', (done) => {
             req.data = {
@@ -88,6 +89,6 @@ describe('create request', () => {
                 assert.isUndefined(data.data, "response data");
                 done();
             })
-        }).timeout(5000);
+        }).timeout(timeout);
     })
 });
