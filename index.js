@@ -64,7 +64,8 @@ const getPayout = (data, callback) => {
 
 const createRequest = (input, callback) => {
     let action;
-    switch (input.data.method.toLowerCase()) {
+    const method = process.env.API_METHOD || input.data.method || "";
+    switch (method.toLowerCase()) {
         case "sendpayout":
             action = sendPayout;
             break;
