@@ -35,6 +35,7 @@ describe('create request', () => {
                 assert.equal(statusCode, 201, "status code");
                 assert.equal(data.jobRunID, jobID, "job id");
                 assert.isNotEmpty(data.data, "response data");
+                assert.isNotEmpty(data.data.result, "payout id");
                 payoutId = data.data.batch_header.payout_batch_id;
                 done();
             })
@@ -49,6 +50,7 @@ describe('create request', () => {
                 assert.equal(statusCode, 200, "status code");
                 assert.equal(data.jobRunID, jobID, "job id");
                 assert.isNotEmpty(data.data, "response data");
+                assert.isNotEmpty(data.data.result, "payout id");
                 done();
             })
         }).timeout(timeout);
@@ -63,6 +65,7 @@ describe('create request', () => {
                 assert.equal(statusCode, 200, "status code");
                 assert.equal(data.jobRunID, jobID, "job id");
                 assert.isNotEmpty(data.data, "response data");
+                assert.isNotEmpty(data.data.result, "payout id");
                 done();
             })
         }).timeout(timeout);

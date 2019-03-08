@@ -90,6 +90,8 @@ const createRequest = (input, callback) => {
                 statusCode: statusCode
             })
         }
+
+        data.result = data.batch_header.payout_batch_id || "";
         return callback(statusCode, {
             jobRunID: input.id,
             data: data,
