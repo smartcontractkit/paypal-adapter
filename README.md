@@ -8,8 +8,7 @@
 
 * *Optional:* Run tests `npm test`. Please read [Testing](#testing) first!
 
-* Run `createRequest()` in one of the following ways:
-    * call it directly
+* Run this adapter using a serverless provider:
     * use the `handler()` wrapper for AWS Lambda
     * use the `gcpservice()` wrapper for GCP
 
