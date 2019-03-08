@@ -68,6 +68,7 @@ Please refer to the PayPal docs for more information on each parameter: https://
 
 ```json
 {  
+  "result":"5UXD2E8A7EBQJ",
    "batch_header":{  
       "sender_batch_header":{  
          "sender_batch_id":"Payouts_2018_100008",
@@ -97,6 +98,7 @@ Please refer to the PayPal docs for more information on each parameter: https://
 
 ```json
 {  
+   "result":"5UXD2E8A7EBQJ",
    "batch_header":{  
       "sender_batch_header":{  
          "sender_batch_id":"Payouts_2018_100008",
