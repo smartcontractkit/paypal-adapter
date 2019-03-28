@@ -110,3 +110,7 @@ Please refer to the PayPal docs for more information on each parameter: https://
    }
 }
 ```
+
+## Disclaimer
+
+In order to use this adapter, you will need to create an account with and obtain credentials from PayPal and agree to and comply with PayPal’s applicable terms, conditions and policies.  In no event will SmartContract Chainlink Limited SEZC be liable for your or your user’s failure to comply with any or all of PayPal’s terms, conditions or policies or any other applicable license terms.
