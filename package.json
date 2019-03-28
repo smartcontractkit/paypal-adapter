@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/smartcontractkit/paypal-adapter.git"
   },
-  "author": "",
+  "author": "Jonas Hals <contact@jonashals.me>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/smartcontractkit/paypal-adapter/issues"
