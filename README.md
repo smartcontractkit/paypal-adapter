@@ -28,6 +28,7 @@ zip -r cl-ea.zip .
 | `MODE`     | *Optional*  | `LIVE` or `SANDBOX` | `SANDBOX` |
 | `CLIENT_ID`  | **Required**  | Your PayPal Client ID | `EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM` |
 | `CLIENT_SECRET`  | **Required**  | Your PayPal Client Secret | `EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM` |
+| `API_METHOD` | *Optional* | Set a specific method to use for this adapter. Overwrites `method` in request body. | `sendPayout` |
 
 To get PayPal developer credentials, please check out https://developer.paypal.com/.
 
@@ -44,6 +45,9 @@ These env vars can be set with `TEST_CURRENCY` and `TEST_RECEIVER`, as well as `
 To test the getPayout method with another payout other than the one created in the test, set the `TEST_PAYOUT_ID` env var.
 
 ## Available methods
+
+Method can be specified by the `method` key in the request body or the `API_METHOD` environment variable. If the 
+environment variable is set, it takes precedence over the method specified in the request body.
 
 ### sendPayout
 
