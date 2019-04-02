@@ -1,4 +1,18 @@
-const paypal = require('paypal-rest-sdk');
+import * as paypal from "paypal-rest-sdk";
+
+export type reqData = {
+    method: string | undefined,
+    amount: number | string | undefined,
+    currency: string | undefined,
+    receiver: string | undefined,
+    payout_id: string | undefined,
+    email_subject: string | undefined,
+    email_message: string | undefined,
+    recipient_type: string | undefined,
+    note: string | undefined,
+    sender_item_id: string | undefined,
+    type: string | undefined,
+}
 
 paypal.configure({
     "mode": process.env.MODE || "live",
@@ -6,11 +20,11 @@ paypal.configure({
     "client_secret": process.env.CLIENT_SECRET
 });
 
-const sendPayout = (data, callback) => {
+const sendPayout = (data: reqData, callback: { (statusCode: number, msg: string): void }) => {
     if (!('amount' in data) || !('receiver' in data)) {
         return callback(400, "missing required parameters")
     }
-    
+
     let sender_batch_id = Math.random().toString(36).substring(9);
     let payoutItem = {
         "sender_batch_header": {
@@ -32,13 +46,13 @@ const sendPayout = (data, callback) => {
         ]
     };
 
-    paypal.payout.create(payoutItem, true, (error, payout) => {
+    paypal.payout.create(payoutItem, true, (error: any, payout: any) => {
         if (error) return callback(error.httpStatusCode, error);
         return callback(payout.httpStatusCode, payout)
     })
 };
 
-const getPayout = (data, callback) => {
+const getPayout = (data: reqData, callback: { (statusCode: number, msg: any): void }) => {
     if (!('payout_id' in data)) {
         return callback(400, "missing required parameters")
     }
@@ -56,15 +70,17 @@ const getPayout = (data, callback) => {
             return callback(400, "invalid method")
     }
 
-    request.get(data.payout_id, (error, payout) => {
+    request.get(data.payout_id, (error: any, payout: any) => {
         if (error) return callback(error.httpStatusCode, error);
         return callback(payout.httpStatusCode, payout);
     })
 };
 
-const createRequest = (input, callback) => {
+export const createRequest = (input: any = {}, callback: { (statusCode: number, data: any): void } = () => {
+}) => {
     let action;
-    const method = process.env.API_METHOD || input.data.method || "";
+    const data = <reqData>input.data;
+    const method = process.env.API_METHOD || data.method || "";
     switch (method.toLowerCase()) {
         case "sendpayout":
             action = sendPayout;
@@ -81,7 +97,7 @@ const createRequest = (input, callback) => {
             })
     }
 
-    action(input.data, (statusCode, data) => {
+    action(data, (statusCode, data) => {
         if (statusCode < 200 || statusCode >= 300) {
             return callback(statusCode, {
                 jobRunID: input.id,
@@ -101,18 +117,18 @@ const createRequest = (input, callback) => {
 };
 
 // createRequest() wrapper for GCP
-exports.gcpservice = (req, res) => {
+export const gcpservice = async (req: any = {}, res: any): Promise<any> => {
     createRequest(req.body, (statusCode, data) => {
         res.status(statusCode).send(data);
     });
 };
 
 // createRequest() wrapper for AWS Lambda
-exports.handler = (event, context, callback) => {
+export const handler = async (
+    event: any = {},
+    context: any = {},
+    callback: { (error: any, result: any): void }): Promise<any> => {
     createRequest(event, (statusCode, data) => {
         callback(null, data);
     });
 };
-
-// Used for testing
-module.exports.createRequest = createRequest;

@@ -2,7 +2,9 @@
 
 ## How to use
 
-* Install dependencies `npm install`
+* Install dependencies `yarn install`
+
+* Build TypeScript files `npm build`
 
 * Set up [Environment variables](#environment-variables)
 
