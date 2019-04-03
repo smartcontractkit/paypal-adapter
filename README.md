@@ -4,11 +4,11 @@
 
 * Install dependencies `yarn install`
 
-* Build TypeScript files `npm run build`
+* Build TypeScript files `yarn build`
 
 * Set up [Environment variables](#environment-variables)
 
-* *Optional:* Run tests `npm test`. Please read [Testing](#testing) first!
+* *Optional:* Run tests `yarn test`. Please read [Testing](#testing) first!
 
 * Run this adapter using a serverless provider:
     * use the `handler()` wrapper for AWS Lambda
