@@ -4,7 +4,7 @@
 
 * Install dependencies `yarn install`
 
-* Build TypeScript files `npm build`
+* Build TypeScript files `npm run build`
 
 * Set up [Environment variables](#environment-variables)
 
