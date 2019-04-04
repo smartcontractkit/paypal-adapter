@@ -8,6 +8,11 @@ class Response {
     error?: any;
 }
 
+export class JobRequest {
+    id: string;
+    data: Request;
+}
+
 export class Request {
     method?: string;
 }
@@ -93,9 +98,9 @@ const getPayout = async (data: GetRequest) => {
     }))
 };
 
-export const createRequest = async (input: any = {}) => {
+export const createRequest = async (input: JobRequest) => {
     return new Promise((resolve, reject) => {
-        const data = <Request>input.data;
+        const data = input.data;
         const method = process.env.API_METHOD || data.method || "";
         switch (method.toLowerCase()) {
             case "sendpayout":
@@ -118,7 +123,7 @@ export const createRequest = async (input: any = {}) => {
     })
 };
 
-export const requestWrapper = async (req: any = {}): Promise<Response> => {
+export const requestWrapper = async (req: JobRequest): Promise<Response> => {
     return new Promise<Response>(resolve => {
         let response = <Response>{jobRunID: req.id || ""};
         createRequest(req).then(({statusCode, data}) => {
@@ -137,13 +142,13 @@ export const requestWrapper = async (req: any = {}): Promise<Response> => {
 
 // createRequest() wrapper for GCP
 export const gcpservice = async (req: any = {}, res: any): Promise<any> => {
-    let response = await requestWrapper(req.body);
+    let response = await requestWrapper(<JobRequest>req.body);
     res.status(response.statusCode).send(response);
 };
 
 // createRequest() wrapper for AWS Lambda
 export const handler = async (
-    event: any = {},
+    event: JobRequest,
     context: any = {},
     callback: { (error: any, result: any): void }): Promise<any> => {
     callback(null, await requestWrapper(event));

@@ -1,11 +1,11 @@
-import {GetRequest, Request, requestWrapper, SendRequest} from './index';
+import {GetRequest, JobRequest, Request, requestWrapper, SendRequest} from './index';
 import {assert} from 'chai';
 import 'mocha';
 
 describe('create request', () => {
     context('requests data', () => {
         const jobID = "278c97ffadb54a5bbb93cfec5f7b5503";
-        const req = {
+        const req = <JobRequest>{
             id: jobID,
             data: <Request>{}
         };
