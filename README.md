@@ -23,6 +23,17 @@ To create a ZIP file to upload to AWS/GCP, run:
 zip -r cl-ea.zip .
 ```
 
+## Run with Docker
+
+```bash
+docker build . -t paypal-adapter
+docker run -d \
+    -p 5000:5000 \
+    -e CLIENT_ID="Your_client_id" \
+    -e CLIENT_SECRET="Your_client_secret" \
+    paypal-adapter
+```
+
 ## Environment variables
 
 | Variable      |               | Description | Example |
