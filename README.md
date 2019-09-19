@@ -28,7 +28,8 @@ zip -r cl-ea.zip .
 ```bash
 docker build . -t paypal-adapter
 docker run -d \
-    -p 5000:5000 \
+    -p 8080:8080 \
+    -e EA_PORT=8080 \
     -e CLIENT_ID="Your_client_id" \
     -e CLIENT_SECRET="Your_client_secret" \
     paypal-adapter

@@ -10,7 +10,11 @@ app.post('/', function (req: any, res: any) {
     gcpservice(req, res);
 });
 
-let listener = app.listen(process.argv[2], function () {
+let listener = app.listen(process.env.EA_PORT || 8080, function () {
     let addressInfo = <AddressInfo>listener.address();
     console.log("Listening on ", addressInfo.address + ":" + addressInfo.port);
+});
+
+process.on('SIGINT', function () {
+    process.exit();
 });

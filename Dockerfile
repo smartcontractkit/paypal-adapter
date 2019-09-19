@@ -7,5 +7,6 @@ RUN apk add --no-cache git
 RUN yarn install
 RUN yarn build
 
-EXPOSE 5000
-ENTRYPOINT ["node", "./dist/server.js", "5000"]
+ENV EA_PORT=8080
+
+CMD node ./dist/server.js
